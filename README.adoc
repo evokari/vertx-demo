@@ -1,0 +1,115 @@
+= pac-service-definitions
+
+image:https://img.shields.io/badge/vert.x-4.0.0-purple.svg[link="https://vertx.io"]
+
+This application was generated using http://start.vertx.io
+
+== Building
+
+To launch your tests:
+```
+./mvnw clean test
+```
+
+To package your application:
+```
+./mvnw clean package
+```
+
+To run your application:
+```
+./mvnw clean compile exec:java
+```
+
+To run database locally in Docker:
+
+```
+docker run --name pg-pac-service-definitions -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=pg-pac-service-definitions -p 5432:5432 -d postgres:13.1-alpine
+```
+
+Subsequent starts:
+
+```
+docker start -a pg-pac-service-definitions
+```
+
+
+To repair db after issues with Flyway:
+```
+flyway -url=jdbc:postgresql://localhost:5432/pg-pac-service-definitions -user="postgres" -password="secret" -schemas='pac' repair
+```
+
+To run in IDEA:
+
+Set these in configuration:
+
+Build and run: MainVerticle
+Environment variables: SERVER_PORT=8888;DB_HOST=localhost;DB_PORT=5432;DB_DATABASE=pac-service-definitions;DB_USER=postgres;DB_PASSWORD=secret
+
+To run locally in Docker
+
+Prepare Maven:
+
+```
+<!-- Docker -->
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>2.7.1</version>
+        <configuration>
+          <from>
+            <image>amazoncorretto:11</image>
+          </from>
+          <to>
+            <!--AWS
+            <image>aws_account_id.dkr.ecr.region.amazonaws.com:5000/${project.groupId}-${project.artifactId}:${project.version}</image>
+            -->
+            <image>localhost:5000/${project.groupId}-${project.artifactId}:${project.version}</image>
+          </to>
+          <container>
+            <mainClass>${main.verticle}</mainClass>
+            <jvmFlags>
+            <!-- send vert.x logs to Sl4j -->
+              <jvmFlag>-Dvertx.logger-delegate-factory-class-name=io.vertx.core.logging.SLF4JLogDelegateFactory</jvmFlag>
+            </jvmFlags>
+          </container>
+          <allowInsecureRegistries>true</allowInsecureRegistries>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>deploy</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+```
+
+Build:
+
+```
+mvn clean install
+mvn compile jib:build
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+docker login localhost:5000
+docker pull localhost:5000/com.juhaevokari.op-pac-service-definitions:1.0.0-SNAPSHOT
+docker run -p 8888:8888 localhost:5000/com.juhaevokari.op-pac-service-definitions:1.0.0-SNAPSHOT
+docker run -e SERVER_PORT=8888 -e DB_HOST=host.docker.internal -e DB_PORT=5432 -e DB_DATABASE=pac-service-definitions -e DB_USER=postgres -e DB_PASSWORD=secret -p 8888:8888 localhost:5000/com.juhaevokari.op-pac-service-definitions:1.0.0-SNAPSHOT
+```
+For docker login, use testuser/testpassword
+
+NOTE!
+```
+DB_HOST=host.docker.internal
+```
+needs to be used to allow docker to connect to the PostgerSQL DB that runs on a different container and simultaneously allow exposing port 8888 on localhost.
+
+== Help
+
+* https://vertx.io/docs/[Vert.x Documentation]
+* https://stackoverflow.com/questions/tagged/vert.x?sort=newest&pageSize=15[Vert.x Stack Overflow]
+* https://groups.google.com/forum/?fromgroups#!forum/vertx[Vert.x User Group]
+* https://gitter.im/eclipse-vertx/vertx-users[Vert.x Gitter]
+
+
