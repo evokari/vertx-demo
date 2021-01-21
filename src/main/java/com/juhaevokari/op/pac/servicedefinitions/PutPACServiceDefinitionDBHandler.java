@@ -1,7 +1,5 @@
-package com.juhaevokari.op.pac.servicedefinitions.db;
+package com.juhaevokari.op.pac.servicedefinitions;
 
-import com.juhaevokari.op.pac.servicedefinitions.PACServiceDefinition;
-import com.juhaevokari.op.pac.servicedefinitions.PACServiceDefinitionRestApi;
 import com.juhaevokari.op.pac.db.DBResponse;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Future;

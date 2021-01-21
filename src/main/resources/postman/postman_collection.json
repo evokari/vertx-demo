@@ -1,30 +1,28 @@
 {
 	"info": {
-		"_postman_id": "ef8a6c60-99a3-41d3-bf2c-73809119eb2a",
-		"name": "Udemy Vert.x",
+		"_postman_id": "b6aaf18a-1f2c-4953-b2a5-99302c208fc1",
+		"name": "servicedefinitions",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "PUT Watchlist",
+			"name": "PUT",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"assets\": [\n    {\n      \"name\": \"AMZN\"\n    },\n    {\n      \"name\": \"TSLA\"\n    },\n    {\n      \"name\": \"MSFT\"\n    }\n  ]\n}\n"
+					"raw": "{\n \"name\": \"definition1\",\n \"description\": \"description 1\",\n \"status\": \"active\"\n}\n"
 				},
 				"url": {
-					"raw": "http://localhost:8888/pg/account/watchlist/200",
+					"raw": "http://localhost:8888/servicedefinitions/200",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8888",
 					"path": [
-						"pg",
-						"account",
-						"watchlist",
+						"servicedefinitions",
 						"200"
 					]
 				}
@@ -32,21 +30,43 @@
 			"response": []
 		},
 		{
-			"name": "DELETE Watchlist",
+			"name": "POST",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"name\": \"definition1\",\n \"description\": \"description 1\",\n \"status\": \"active\"\n}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8888/servicedefinitions/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"servicedefinitions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8888/pg/account/watchlist/200",
+					"raw": "http://localhost:8888/servicedefinitions/200",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8888",
 					"path": [
-						"pg",
-						"account",
-						"watchlist",
+						"servicedefinitions",
 						"200"
 					]
 				}
@@ -54,22 +74,40 @@
 			"response": []
 		},
 		{
-			"name": "GET Watchlist",
+			"name": "GET All",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8888/pg/account/watchlist/200",
+					"raw": "http://localhost:8888/servicedefinitions/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8888",
 					"path": [
-						"pg",
-						"account",
-						"watchlist",
-						"200"
+						"servicedefinitions",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET one",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8888/servicedefinitions/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"servicedefinitions",
+						""
 					]
 				}
 			},

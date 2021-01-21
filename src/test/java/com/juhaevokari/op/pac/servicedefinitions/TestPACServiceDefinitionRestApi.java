@@ -28,7 +28,7 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
   void adds_and_returns_service_definition(Vertx vertx, VertxTestContext testContext) throws Throwable {
     var client = webclient(vertx);
     AtomicReference<String> id = new AtomicReference<>();
-    client.post("/pg/servicedefinitions/")
+    client.post("/servicedefinitions/")
       .sendJsonObject(body())
       .onComplete(testContext.succeeding(response -> {
         var json = response.bodyAsJsonObject();
@@ -37,7 +37,7 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
         assertEquals(200, response.statusCode());
         id.set(json.getString("id"));
       })).compose(next -> {
-      client.get("/pg/servicedefinitions/" + id)
+      client.get("/servicedefinitions/" + id)
         .send()
         .onComplete(testContext.succeeding(response -> {
           var json = response.bodyAsJsonObject();
@@ -54,7 +54,7 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
   void adds_and_updates_service_definition(Vertx vertx, VertxTestContext testContext) throws Throwable {
       var client = webclient(vertx);
       AtomicReference<String> id = new AtomicReference<>();
-      client.post("/pg/servicedefinitions/")
+      client.post("/servicedefinitions/")
           .sendJsonObject(body())
           .onComplete(testContext.succeeding(response -> {
               var json = response.bodyAsJsonObject();
@@ -63,7 +63,7 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
               assertEquals(200, response.statusCode());
               id.set(json.getString("id"));
           })).compose(next -> {
-              client.put("/pg/servicedefinitions/" + id)
+              client.put("/servicedefinitions/" + id)
                   .sendJsonObject(body())
                   .onComplete(testContext.succeeding(response -> {
                       assertEquals(204, response.statusCode());
@@ -77,7 +77,7 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
     void adds_and_deletes_service_definition(Vertx vertx, VertxTestContext testContext) throws Throwable {
         var client = webclient(vertx);
         AtomicReference<String> id = new AtomicReference<>();
-        client.post("/pg/servicedefinitions/")
+        client.post("/servicedefinitions/")
                 .sendJsonObject(body())
                 .onComplete(testContext.succeeding(response -> {
                     var json = response.bodyAsJsonObject();
@@ -86,7 +86,7 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
                     assertEquals(200, response.statusCode());
                     id.set(json.getString("id"));
                 })).compose(next -> {
-            client.delete("/pg/servicedefinitions/" + id)
+            client.delete("/servicedefinitions/" + id)
                     .send()
                     .onComplete(testContext.succeeding(response -> {
                         assertEquals(204, response.statusCode());

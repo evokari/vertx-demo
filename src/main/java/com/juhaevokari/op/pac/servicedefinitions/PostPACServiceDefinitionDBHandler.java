@@ -1,7 +1,6 @@
-package com.juhaevokari.op.pac.servicedefinitions.db;
+package com.juhaevokari.op.pac.servicedefinitions;
 
 import com.juhaevokari.op.pac.db.DBResponse;
-import com.juhaevokari.op.pac.servicedefinitions.PACServiceDefinition;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Handler;
 import io.vertx.ext.web.RoutingContext;
