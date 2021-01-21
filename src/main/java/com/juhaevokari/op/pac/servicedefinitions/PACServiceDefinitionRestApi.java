@@ -24,6 +24,10 @@ public class PACServiceDefinitionRestApi {
     final String pathAll = "/servicedefinitions/";
     parent.get(pathAll).handler(new GetAllPACServiceDefinitionsFromDBHandler(db));
     parent.post(pathAll).handler(new PostPACServiceDefinitionDBHandler(db));
+
+    final String pathBatch = "/servicedefinitions/batch/";
+    parent.post(pathBatch).handler(new PostBatchPACServiceDefinitionDBHandler(db));
+
   }
 
   public static String getServiceDefinitionId(RoutingContext context) {

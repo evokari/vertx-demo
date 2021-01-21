@@ -4,6 +4,7 @@ import com.juhaevokari.op.pac.AbstractRestApiTest;
 import com.juhaevokari.op.pac.MainVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
@@ -92,6 +93,30 @@ public class TestPACServiceDefinitionRestApi extends AbstractRestApiTest {
                         assertEquals(204, response.statusCode());
                         testContext.completeNow();
                     }));
+            return Future.succeededFuture();
+        });
+    }
+
+    @Test
+    void adds_a_batch_of_service_definitions(Vertx vertx, VertxTestContext testContext) throws Throwable {
+        var client = webclient(vertx);
+        var definitionArray = new JsonArray()
+            .add(body())
+            .add(body());
+
+        client.post("/servicedefinitions/batch/")
+            .sendJson(definitionArray)
+            .onComplete(testContext.succeeding(response -> {
+                assertEquals(204, response.statusCode());
+            })).compose(next -> {
+            client.get("/servicedefinitions/")
+                .send()
+                .onComplete(testContext.succeeding(response -> {
+                    var json = response.bodyAsJsonArray();
+                    LOG.info("GET Response: {}", json);
+                    assertEquals(200, response.statusCode());
+                    testContext.completeNow();
+                }));
             return Future.succeededFuture();
         });
     }

@@ -54,6 +54,30 @@
 			"response": []
 		},
 		{
+			"name": "POST Batch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n[\n    {\n    \"name\": \"definition1\",\n    \"description\": \"description 1\",\n    \"status\": \"active\"\n    },\n    {\n    \"name\": \"definition2\",\n    \"description\": \"description 2\",\n    \"status\": \"active\"\n    }\n]\n"
+				},
+				"url": {
+					"raw": "http://localhost:8888/servicedefinitions/batch",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"servicedefinitions",
+						"batch"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "DELETE",
 			"request": {
 				"method": "DELETE",
